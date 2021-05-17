@@ -1,0 +1,12 @@
+.board-row {
+}
+
+.square {
+  height: 200px;
+  width: 200px;
+}
+
+.status {
+  margin-bottom: 5%;
+  font-size: 50px;
+}
