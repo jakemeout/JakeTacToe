@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import './TicTacToe.css' 
+import ImageUploader from "react-images-upload";
+// import K
+import "./TicTacToe.css";
 // Square
 // value (prop) which represents the players value or name of playerr (x or o)
 // onclick or handleClick (prop) function which saves the player choice to the board
@@ -20,8 +22,7 @@ import './TicTacToe.css'
 // create a set of winning combinations
 
 const TicTacToeReact = () => {
-  
-  const Square = ({handleClick, value}) => {
+  const Square = ({ handleClick, value }) => {
     return (
       <button className="square" onClick={handleClick}>
         {value}
@@ -32,6 +33,7 @@ const TicTacToeReact = () => {
   const Board = () => {
     const [boardSquares, setBoardSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
+    const [xImage, setXImage] = useState(<img src={} alt="Logo" />);
 
     const handleClick = (index) => {
       const squares = [...boardSquares];
@@ -40,14 +42,16 @@ const TicTacToeReact = () => {
 
       squares[index] = xIsNext ? "X" : "O";
       // mutate the board with either X or O
-
       console.log(squares);
-
       setBoardSquares(squares);
       //set the state
-
       setXIsNext(!xIsNext);
       //set state of turn to next person
+    };
+    const onDrop = (picture) => {
+      this.setState({
+        pictures: this.state.pictures.concat(picture),
+      });
     };
 
     const renderSquare = (index) => {
@@ -61,12 +65,21 @@ const TicTacToeReact = () => {
 
     let status;
     const winner = calculateWinner(boardSquares);
+    const nextPlayerStatus = xIsNext ? "X" : "O";
+
     status = winner
       ? `Winner is: ${winner}`
-      : `Next Player: ${xIsNext ? "X" : "O"}`;
+      : `Next Player: ${nextPlayerStatus}`;
 
     return (
       <div>
+        <ImageUploader
+          withIcon={true}
+          buttonText="Choose images"
+          onChange={onDrop}
+          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+          maxFileSize={5242880}
+        />
         <div className="status">{status}</div>
         <div className="board-row">
           {renderSquare(0)}
