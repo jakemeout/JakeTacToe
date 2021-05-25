@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ImageUploader from "react-images-upload";
-// import K
+import angryDad from "./assets/images/AngryDad.png";
+import jakeO from "./assets/images/jakeO.png";
 import "./TicTacToe.css";
 // Square
 // value (prop) which represents the players value or name of playerr (x or o)
@@ -33,14 +34,27 @@ const TicTacToeReact = () => {
   const Board = () => {
     const [boardSquares, setBoardSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
-    const [xImage, setXImage] = useState(<img src={} alt="Logo" />);
+    const [xImage, setXImage] = useState(
+      <img
+        src={angryDad}
+        alt="xDefaultLogo"
+        style={{ height: "200px", width: "200px" }}
+      />
+    );
+    const [oImage, setOImage] = useState(
+      <img
+        src={jakeO}
+        alt="oDefaultLogo"
+        style={{ height: "200px", width: "200px" }}
+      />
+    );
 
     const handleClick = (index) => {
       const squares = [...boardSquares];
 
       if (calculateWinner(boardSquares) || squares[index]) return;
 
-      squares[index] = xIsNext ? "X" : "O";
+      squares[index] = xIsNext ? xImage : oImage;
       // mutate the board with either X or O
       console.log(squares);
       setBoardSquares(squares);
@@ -49,9 +63,8 @@ const TicTacToeReact = () => {
       //set state of turn to next person
     };
     const onDrop = (picture) => {
-      this.setState({
-        pictures: this.state.pictures.concat(picture),
-      });
+      // console.log(picture[0])
+      setXImage(picture)
     };
 
     const renderSquare = (index) => {
@@ -63,24 +76,44 @@ const TicTacToeReact = () => {
       );
     };
 
-    let status;
     const winner = calculateWinner(boardSquares);
-    const nextPlayerStatus = xIsNext ? "X" : "O";
+    const nextPlayerStatus = xIsNext ? xImage : oImage;
 
-    status = winner
-      ? `Winner is: ${winner}`
-      : `Next Player: ${nextPlayerStatus}`;
+    const status = winner ? winner : nextPlayerStatus;
+    const statusLabel = winner ? `Winner is:` : `Next Player:`;
 
     return (
       <div>
-        <ImageUploader
-          withIcon={true}
-          buttonText="Choose images"
-          onChange={onDrop}
-          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-          maxFileSize={5242880}
-        />
-        <div className="status">{status}</div>
+        <div className="playerImageContainer">
+          <div>
+            <h1>Update Player 1(X)</h1>
+            <ImageUploader
+              withIcon={true}
+              singleImage={true}
+              buttonText="Choose images"
+              onChange={onDrop}
+              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+              maxFileSize={5242880}
+              withPreview={true}
+            />
+          </div>
+          <div>
+            <h1>Update Player 2(O)</h1>
+            <ImageUploader
+              withIcon={true}
+              buttonText="Choose images"
+              // onChange={}
+              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+              maxFileSize={5242880}
+              singleImage={true}
+              withPreview={true}
+            />
+          </div>
+        </div>
+        <div className="status">
+          {statusLabel}
+          {status}
+        </div>
         <div className="board-row">
           {renderSquare(0)}
           {renderSquare(1)}
