@@ -25,21 +25,17 @@ import styled from "styled-components";
 
 const TicTacToeReact = () => {
   const Square = ({ handleClick, value }) => {
-    return (
-      <button className="square" onClick={handleClick}>
-        {value}
-      </button>
-    );
+    return <SquareStyle onClick={handleClick}>{value}</SquareStyle>;
   };
 
   const Board = () => {
     const [boardSquares, setBoardSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
     const [xImage, setXImage] = useState(
-      <img src={angryDad} alt="xDefaultLogo" />
+      <img src={angryDad} alt="xDefaultLogo" style={SquareImageStyle} />
     );
     const [oImage, setOImage] = useState(
-      <img src={jakeO} alt="oDefaultLogo" />
+      <img src={jakeO} alt="oDefaultLogo" style={SquareImageStyle} />
     );
 
     const handleClick = (index) => {
@@ -62,12 +58,10 @@ const TicTacToeReact = () => {
 
     const renderSquare = (index) => {
       return (
-        <SquareStyle>
-          <Square
-            value={boardSquares[index]}
-            handleClick={() => handleClick(index)}
-          />
-        </SquareStyle>
+        <Square
+          value={boardSquares[index]}
+          handleClick={() => handleClick(index)}
+        />
       );
     };
 
@@ -109,21 +103,23 @@ const TicTacToeReact = () => {
           {statusLabel}
           {status}
         </StatusStyle>
-        <div className="board-row">
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
-        </div>
+        <BoardContainer>
+          <div className="board-row">
+            {renderSquare(0)}
+            {renderSquare(1)}
+            {renderSquare(2)}
+          </div>
+          <div className="board-row">
+            {renderSquare(3)}
+            {renderSquare(4)}
+            {renderSquare(5)}
+          </div>
+          <div className="board-row">
+            {renderSquare(6)}
+            {renderSquare(7)}
+            {renderSquare(8)}
+          </div>
+        </BoardContainer>
       </div>
     );
   };
@@ -156,12 +152,18 @@ const TicTacToeReact = () => {
   return <Board />;
 };
 
+const SquareImageStyle = {
+  height: "200px",
+  width: "200px",
+};
 const SquareStyle = styled.div`
+  border: 1px solid black;
   height: 200px;
   width: 200px;
 `;
+
 const StatusStyle = styled.div`
-  margin-bottom: 5%;
+  margin-bottom: 4%;
   font-size: 50px;
 `;
 const PlayerContainerStyle = styled.div`
@@ -170,6 +172,11 @@ const PlayerContainerStyle = styled.div`
   justify-content: space-between;
   padding-right: 20%;
   padding-left: 20%;
+  margin-top: 10%;
+`;
+const BoardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 0fr);
 `;
 
 export default TicTacToeReact;
