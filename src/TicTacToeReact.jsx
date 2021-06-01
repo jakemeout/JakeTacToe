@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import ImageUploader from "react-images-upload";
 import angryDad from "./assets/images/AngryDad.png";
 import jakeO from "./assets/images/jakeO.png";
-import "./TicTacToe.css";
+import styled from "styled-components";
+
 // Square
 // value (prop) which represents the players value or name of playerr (x or o)
 // onclick or handleClick (prop) function which saves the player choice to the board
@@ -35,18 +36,10 @@ const TicTacToeReact = () => {
     const [boardSquares, setBoardSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
     const [xImage, setXImage] = useState(
-      <img
-        src={angryDad}
-        alt="xDefaultLogo"
-        style={{ height: "200px", width: "200px" }}
-      />
+      <img src={angryDad} alt="xDefaultLogo" />
     );
     const [oImage, setOImage] = useState(
-      <img
-        src={jakeO}
-        alt="oDefaultLogo"
-        style={{ height: "200px", width: "200px" }}
-      />
+      <img src={jakeO} alt="oDefaultLogo" />
     );
 
     const handleClick = (index) => {
@@ -64,15 +57,17 @@ const TicTacToeReact = () => {
     };
     const onDrop = (picture) => {
       // console.log(picture[0])
-      setXImage(picture)
+      setXImage(picture);
     };
 
     const renderSquare = (index) => {
       return (
-        <Square
-          value={boardSquares[index]}
-          handleClick={() => handleClick(index)}
-        />
+        <SquareStyle>
+          <Square
+            value={boardSquares[index]}
+            handleClick={() => handleClick(index)}
+          />
+        </SquareStyle>
       );
     };
 
@@ -84,7 +79,7 @@ const TicTacToeReact = () => {
 
     return (
       <div>
-        <div className="playerImageContainer">
+        <PlayerContainerStyle>
           <div>
             <h1>Update Player 1(X)</h1>
             <ImageUploader
@@ -109,11 +104,11 @@ const TicTacToeReact = () => {
               withPreview={true}
             />
           </div>
-        </div>
-        <div className="status">
+        </PlayerContainerStyle>
+        <StatusStyle>
           {statusLabel}
           {status}
-        </div>
+        </StatusStyle>
         <div className="board-row">
           {renderSquare(0)}
           {renderSquare(1)}
@@ -160,5 +155,21 @@ const TicTacToeReact = () => {
 
   return <Board />;
 };
+
+const SquareStyle = styled.div`
+  height: 200px;
+  width: 200px;
+`;
+const StatusStyle = styled.div`
+  margin-bottom: 5%;
+  font-size: 50px;
+`;
+const PlayerContainerStyle = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 20%;
+  padding-left: 20%;
+`;
 
 export default TicTacToeReact;
