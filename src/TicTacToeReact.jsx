@@ -98,28 +98,24 @@ const TicTacToeReact = () => {
               withPreview={true}
             />
           </div>
+          <StatusStyle>
+            {statusLabel}
+            {status}
+          </StatusStyle>
+          <BoardContainer>
+            <BoardStyle>
+              {renderSquare(0)}
+              {renderSquare(1)}
+              {renderSquare(2)}
+              {renderSquare(3)}
+              {renderSquare(4)}
+              {renderSquare(5)}
+              {renderSquare(6)}
+              {renderSquare(7)}
+              {renderSquare(8)}
+            </BoardStyle>
+          </BoardContainer>
         </PlayerContainerStyle>
-        <StatusStyle>
-          {statusLabel}
-          {status}
-        </StatusStyle>
-        <BoardContainer>
-          <div className="board-row">
-            {renderSquare(0)}
-            {renderSquare(1)}
-            {renderSquare(2)}
-          </div>
-          <div className="board-row">
-            {renderSquare(3)}
-            {renderSquare(4)}
-            {renderSquare(5)}
-          </div>
-          <div className="board-row">
-            {renderSquare(6)}
-            {renderSquare(7)}
-            {renderSquare(8)}
-          </div>
-        </BoardContainer>
       </div>
     );
   };
@@ -168,15 +164,17 @@ const StatusStyle = styled.div`
 `;
 const PlayerContainerStyle = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   padding-right: 20%;
   padding-left: 20%;
   margin-top: 10%;
 `;
-const BoardContainer = styled.div`
+const BoardStyle = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 0fr);
 `;
+
+const BoardContainer = styled.div``;
 
 export default TicTacToeReact;
