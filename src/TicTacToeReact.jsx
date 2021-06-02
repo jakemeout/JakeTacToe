@@ -69,39 +69,39 @@ const TicTacToeReact = () => {
     const nextPlayerStatus = xIsNext ? xImage : oImage;
 
     const status = winner ? winner : nextPlayerStatus;
-    const statusLabel = winner ? `Winner is:` : `Next Player:`;
+    const statusLabel = winner ? `Winner is:` : `Next Player`;
 
     return (
       <div>
         <PlayerContainerStyle>
-          <div>
-            <h1>Update Player 1(X)</h1>
-            <ImageUploader
-              withIcon={true}
-              singleImage={true}
-              buttonText="Choose images"
-              onChange={onDrop}
-              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-              maxFileSize={5242880}
-              withPreview={true}
-            />
-          </div>
-          <div>
-            <h1>Update Player 2(O)</h1>
-            <ImageUploader
-              withIcon={true}
-              buttonText="Choose images"
-              // onChange={}
-              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-              maxFileSize={5242880}
-              singleImage={true}
-              withPreview={true}
-            />
-          </div>
-          <StatusStyle>
-            {statusLabel}
-            {status}
-          </StatusStyle>
+          <ImageUploadStyle>
+            <div>
+              <h1>Player 1</h1>
+              <ImageUploader
+                withIcon={true}
+                singleImage={true}
+                buttonText="Choose images"
+                onChange={onDrop}
+                imgExtension={[".jpg", ".gif"]}
+                maxFileSize={5242880}
+                withPreview={true}
+              />
+            </div>
+            <div>
+              <h1>Player 2</h1>
+              <ImageUploader
+                withIcon={true}
+                buttonText="Choose images"
+                // onChange={}
+                imgExtension={[".jpg", ".gif"]}
+                maxFileSize={5242880}
+                singleImage={true}
+                withPreview={true}
+              />
+            </div>
+          </ImageUploadStyle>
+          <StatusStyle>{statusLabel}</StatusStyle>
+          <StatusStyle>{status}</StatusStyle>
           <BoardContainer>
             <BoardStyle>
               {renderSquare(0)}
@@ -161,7 +161,9 @@ const SquareStyle = styled.div`
 const StatusStyle = styled.div`
   margin-bottom: 4%;
   font-size: 50px;
+  align-self: center;
 `;
+
 const PlayerContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
@@ -170,6 +172,16 @@ const PlayerContainerStyle = styled.div`
   padding-left: 20%;
   margin-top: 10%;
 `;
+
+const ImageUploadStyle = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
+`;
+
 const BoardStyle = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 0fr);
