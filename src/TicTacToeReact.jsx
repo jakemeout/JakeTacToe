@@ -159,7 +159,7 @@ const SquareStyle = styled.div`
 `;
 
 const StatusStyle = styled.div`
-  margin-bottom: 4%;
+ 
   font-size: 50px;
   align-self: center;
 `;
@@ -170,9 +170,8 @@ const PlayerContainerStyle = styled.div`
   justify-content: center;
   padding-right: 20%;
   padding-left: 20%;
-  margin-top: 10%;
+  margin-top: 5%;
 `;
-
 const ImageUploadStyle = styled.div`
   display: flex;
   flex-direction: row;
