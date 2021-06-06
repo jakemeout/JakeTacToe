@@ -9,7 +9,7 @@ import styled from "styled-components";
 // onclick or handleClick (prop) function which saves the player choice to the board
 
 //Board
-// create state for the board like null values and the default or current player
+// create state for the board like null values and te default or current player
 // boardState
 // turnState
 // handleClick function that gets passed to the Square component
@@ -75,10 +75,11 @@ const TicTacToeReact = () => {
       <div>
         <PlayerContainerStyle>
           <ImageUploadStyle>
-            <div>
+            <ImportStyles>
               <h1>Player 1</h1>
               <ImageUploader
                 withIcon={true}
+                fileContainerStyle={fileContainer}
                 singleImage={true}
                 buttonText="Choose images"
                 onChange={onDrop}
@@ -86,19 +87,19 @@ const TicTacToeReact = () => {
                 maxFileSize={5242880}
                 withPreview={true}
               />
-            </div>
-            <div>
+            </ImportStyles>
+            <ImportStyles>
               <h1>Player 2</h1>
               <ImageUploader
                 withIcon={true}
                 buttonText="Choose images"
-                // onChange={}
+                fileContainerStyle={fileContainer}
                 imgExtension={[".jpg", ".gif"]}
                 maxFileSize={5242880}
                 singleImage={true}
                 withPreview={true}
               />
-            </div>
+            </ImportStyles>
           </ImageUploadStyle>
           <StatusStyle>{statusLabel}</StatusStyle>
           <StatusStyle>{status}</StatusStyle>
@@ -152,14 +153,23 @@ const SquareImageStyle = {
   height: "200px",
   width: "200px",
 };
+
+const fileContainer = {
+  width: "350px",
+};
 const SquareStyle = styled.div`
   border: 1px solid black;
   height: 200px;
   width: 200px;
 `;
 
+const ImportStyles = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
 const StatusStyle = styled.div`
- 
   font-size: 50px;
   align-self: center;
 `;
