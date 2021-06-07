@@ -28,6 +28,11 @@ const TicTacToeReact = () => {
     return <SquareStyle onClick={handleClick}>{value}</SquareStyle>;
   };
 
+  const [pictures, setPictures] = useState([]);
+
+  const onDrop = (picture) => {
+    setPictures([...pictures, picture]);
+  };
   const Board = () => {
     const [boardSquares, setBoardSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
@@ -38,6 +43,7 @@ const TicTacToeReact = () => {
       <img src={jakeO} alt="oDefaultLogo" style={SquareImageStyle} />
     );
 
+    console.log(xImage);
     const handleClick = (index) => {
       const squares = [...boardSquares];
 
@@ -53,7 +59,7 @@ const TicTacToeReact = () => {
     };
     const onDrop = (picture) => {
       // console.log(picture[0])
-      setXImage(picture);
+      setXImage(picture[0]);
     };
 
     const renderSquare = (index) => {
@@ -79,7 +85,7 @@ const TicTacToeReact = () => {
               <h1>Player 1</h1>
               <ImageUploader
                 withIcon={true}
-                fileContainerStyle={fileContainer}
+                // fileContainerStyle={fileContainer}
                 singleImage={true}
                 buttonText="Choose images"
                 onChange={onDrop}
@@ -93,7 +99,7 @@ const TicTacToeReact = () => {
               <ImageUploader
                 withIcon={true}
                 buttonText="Choose images"
-                fileContainerStyle={fileContainer}
+                // fileContainerStyle={fileContainer}
                 imgExtension={[".jpg", ".gif"]}
                 maxFileSize={5242880}
                 singleImage={true}
@@ -154,9 +160,6 @@ const SquareImageStyle = {
   width: "200px",
 };
 
-const fileContainer = {
-  width: "350px",
-};
 const SquareStyle = styled.div`
   border: 1px solid black;
   height: 200px;
