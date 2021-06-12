@@ -43,7 +43,6 @@ const TicTacToeReact = () => {
       <img src={jakeO} alt="oDefaultLogo" style={SquareImageStyle} />
     );
 
-    console.log(xImage);
     const handleClick = (index) => {
       const squares = [...boardSquares];
 
@@ -57,9 +56,15 @@ const TicTacToeReact = () => {
       setXIsNext(!xIsNext);
       //set state of turn to next person
     };
+
     const onDrop = (picture) => {
-      // console.log(picture[0])
-      setXImage(picture[0]);
+      // setXImage(picture[0]);
+      let reader = new FileReader();
+      reader.readAsDataURL(picture[0]);
+
+      reader.onload = (e) => {
+        console.log(e.target.result);
+      };
     };
 
     const renderSquare = (index) => {
@@ -89,9 +94,9 @@ const TicTacToeReact = () => {
                 singleImage={true}
                 buttonText="Choose images"
                 onChange={onDrop}
-                imgExtension={[".jpg", ".gif"]}
+                imgExtension={[".jpg", ".gif", ".jpeg"]}
                 maxFileSize={5242880}
-                withPreview={true}
+                // withPreview={true}
               />
             </ImportStyles>
             <ImportStyles>
