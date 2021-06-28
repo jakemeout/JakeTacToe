@@ -57,13 +57,31 @@ const TicTacToeReact = () => {
       //set state of turn to next person
     };
 
-    const onDrop = (picture) => {
-      // setXImage(picture[0]);
+    const onDropPlayerOne = (picture) => {
       let reader = new FileReader();
       reader.readAsDataURL(picture[0]);
-
       reader.onload = (e) => {
-        console.log(e.target.result);
+        setXImage(
+          <img
+            src={e.target.result}
+            alt="xDefaultLogo"
+            style={SquareImageStyle}
+          />
+        );
+      };
+    };
+
+    const onDropPlayerTwo = (picture) => {
+      let reader = new FileReader();
+      reader.readAsDataURL(picture[0]);
+      reader.onload = (e) => {
+        setOImage(
+          <img
+            src={e.target.result}
+            alt="xDefaultLogo"
+            style={SquareImageStyle}
+          />
+        );
       };
     };
 
@@ -77,7 +95,7 @@ const TicTacToeReact = () => {
     };
 
     const winner = calculateWinner(boardSquares);
-    const nextPlayerStatus = xIsNext ? xImage : oImage;
+    const nextPlayerStatus = xIsNext ? xImage : oImage;c
 
     const status = winner ? winner : nextPlayerStatus;
     const statusLabel = winner ? `Winner is:` : `Next Player`;
@@ -90,13 +108,11 @@ const TicTacToeReact = () => {
               <h1>Player 1</h1>
               <ImageUploader
                 withIcon={true}
-                // fileContainerStyle={fileContainer}
                 singleImage={true}
                 buttonText="Choose images"
-                onChange={onDrop}
+                onChange={onDropPlayerOne}
                 imgExtension={[".jpg", ".gif", ".jpeg"]}
                 maxFileSize={5242880}
-                // withPreview={true}
               />
             </ImportStyles>
             <ImportStyles>
@@ -104,7 +120,7 @@ const TicTacToeReact = () => {
               <ImageUploader
                 withIcon={true}
                 buttonText="Choose images"
-                // fileContainerStyle={fileContainer}
+                onChange={onDropPlayerTwo}
                 imgExtension={[".jpg", ".gif"]}
                 maxFileSize={5242880}
                 singleImage={true}
