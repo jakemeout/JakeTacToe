@@ -4,7 +4,7 @@ const Nav = () => {
   return (
     <NavContainerStyle>
       <h1>JakeTacToe</h1>
-      <h4>Welcome to the greatest classic game of Tic Tac Toe</h4>
+      <h4>Welcome to the most fun version of Tic Tac Toe</h4>
     </NavContainerStyle>
   );
 };

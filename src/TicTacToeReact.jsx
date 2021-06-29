@@ -28,11 +28,6 @@ const TicTacToeReact = () => {
     return <SquareStyle onClick={handleClick}>{value}</SquareStyle>;
   };
 
-  const [pictures, setPictures] = useState([]);
-
-  const onDrop = (picture) => {
-    setPictures([...pictures, picture]);
-  };
   const Board = () => {
     const [boardSquares, setBoardSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
@@ -95,7 +90,7 @@ const TicTacToeReact = () => {
     };
 
     const winner = calculateWinner(boardSquares);
-    const nextPlayerStatus = xIsNext ? xImage : oImage;c
+    const nextPlayerStatus = xIsNext ? xImage : oImage;
 
     const status = winner ? winner : nextPlayerStatus;
     const statusLabel = winner ? `Winner is:` : `Next Player`;
@@ -113,6 +108,8 @@ const TicTacToeReact = () => {
                 onChange={onDropPlayerOne}
                 imgExtension={[".jpg", ".gif", ".jpeg"]}
                 maxFileSize={5242880}
+                singleImage={true}
+                withPreview={true}
               />
             </ImportStyles>
             <ImportStyles>
@@ -147,6 +144,12 @@ const TicTacToeReact = () => {
       </div>
     );
   };
+  
+  // [
+  //   [0,1,2],
+  //   [3,4,5],
+  //   [6,7,8]
+  // ]
 
   const calculateWinner = (squares) => {
     const winningLines = [
@@ -154,7 +157,7 @@ const TicTacToeReact = () => {
       [3, 4, 5],
       [6, 7, 8],
       [0, 3, 6],
-      [1, 4, 6],
+      [1, 4, 7],
       [2, 5, 8],
       [0, 4, 8],
       [2, 4, 6],
