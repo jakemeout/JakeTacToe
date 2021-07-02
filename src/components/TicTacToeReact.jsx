@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ImageUploader from "react-images-upload";
-import angryDad from "./assets/images/AngryDad.png";
-import jakeO from "./assets/images/jakeO.png";
+import angryDad from "../assets/images/AngryDad.png";
+import jakeO from "../assets/images/jakeO.png";
 import styled from "styled-components";
 
 // Square
@@ -45,11 +45,8 @@ const TicTacToeReact = () => {
 
       squares[index] = xIsNext ? xImage : oImage;
       // mutate the board with either X or O
-      console.log(squares);
       setBoardSquares(squares);
-      //set the state
       setXIsNext(!xIsNext);
-      //set state of turn to next person
     };
 
     const onDropPlayerOne = (picture) => {
@@ -68,7 +65,11 @@ const TicTacToeReact = () => {
 
     const onDropPlayerTwo = (picture) => {
       let reader = new FileReader();
-      reader.readAsDataURL(picture[0]);
+      if (picture[0]) reader.readAsDataURL(picture[0]);
+      // } else {
+      //   alert("fuck you");
+      // }
+
       reader.onload = (e) => {
         setOImage(
           <img
@@ -91,9 +92,8 @@ const TicTacToeReact = () => {
 
     const winner = calculateWinner(boardSquares);
     const nextPlayerStatus = xIsNext ? xImage : oImage;
-
-    const status = winner ? winner : nextPlayerStatus;
-    const statusLabel = winner ? `Winner is:` : `Next Player`;
+    const status =  (winner && winner === 'LOL you tied') ? winner : nextPlayerStatus;
+    const statusLabel = winner ? `You won!! Rub it in their face!` : `Your Turn`;
 
     return (
       <div>
@@ -101,19 +101,27 @@ const TicTacToeReact = () => {
           <ImageUploadStyle>
             <ImportStyles>
               <h1>Player 1</h1>
+              <p>
+                <i>Upload your avatar</i>
+              </p>
               <ImageUploader
                 withIcon={true}
                 singleImage={true}
                 buttonText="Choose images"
                 onChange={onDropPlayerOne}
                 imgExtension={[".jpg", ".gif", ".jpeg"]}
-                maxFileSize={5242880}
+                maxFileSize={6042880}
                 singleImage={true}
                 withPreview={true}
+                label="Max Size 5mb | accepts: jpg gif jpeg"
+                buttonText="Upload an image or gif"
               />
             </ImportStyles>
             <ImportStyles>
               <h1>Player 2</h1>
+              <p>
+                <i>Upload your avatar</i>
+              </p>
               <ImageUploader
                 withIcon={true}
                 buttonText="Choose images"
@@ -122,6 +130,10 @@ const TicTacToeReact = () => {
                 maxFileSize={5242880}
                 singleImage={true}
                 withPreview={true}
+                label="Max Size 5mb Accepts: jpg gif jpeg"
+                buttonText="Upload an image or gif"
+                errorClass="Sorry please try again"
+                // errorStyle
               />
             </ImportStyles>
           </ImageUploadStyle>
@@ -144,7 +156,7 @@ const TicTacToeReact = () => {
       </div>
     );
   };
-  
+
   // [
   //   [0,1,2],
   //   [3,4,5],
@@ -167,33 +179,34 @@ const TicTacToeReact = () => {
       if (
         squares[a] &&
         squares[a] === squares[b] &&
-        squares[b] === squares[c]
+        squares[a] === squares[c]
       ) {
         return squares[a];
+      } else if (!squares.includes(null)) {
+        return "LOL you tied";
       }
     }
-
     return null;
   };
-
   return <Board />;
 };
 
 const SquareImageStyle = {
-  height: "200px",
-  width: "200px",
+  height: "150px",
+  width: "150px",
 };
 
 const SquareStyle = styled.div`
   border: 1px solid black;
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
 `;
 
 const ImportStyles = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 45%;
 `;
 
 const StatusStyle = styled.div`
@@ -207,7 +220,6 @@ const PlayerContainerStyle = styled.div`
   justify-content: center;
   padding-right: 20%;
   padding-left: 20%;
-  margin-top: 5%;
 `;
 const ImageUploadStyle = styled.div`
   display: flex;
@@ -223,6 +235,9 @@ const BoardStyle = styled.div`
   grid-template-columns: repeat(3, 0fr);
 `;
 
-const BoardContainer = styled.div``;
+const BoardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 export default TicTacToeReact;

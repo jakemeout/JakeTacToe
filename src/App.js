@@ -1,5 +1,5 @@
-import TicTacToeReact from "./TicTacToeReact";
-import Nav from "./Nav";
+import TicTacToeReact from "./components/TicTacToeReact";
+import Nav from "./components/Nav";
 import "./App.css";
 
 function App() {
