@@ -4,25 +4,6 @@ import angryDad from "../assets/images/AngryDad.png";
 import jakeO from "../assets/images/jakeO.png";
 import styled from "styled-components";
 
-// Square
-// value (prop) which represents the players value or name of playerr (x or o)
-// onclick or handleClick (prop) function which saves the player choice to the board
-
-//Board
-// create state for the board like null values and te default or current player
-// boardState
-// turnState
-// handleClick function that gets passed to the Square component
-//edit board state whenever something is clicked
-// if the index of the board is filled, return
-// copy of our board state and mutate copy to add x or o
-// calculate next turn
-// set state of the board
-// set the state of the turn
-
-// function that calculates the winner
-// create a set of winning combinations
-
 const TicTacToeReact = () => {
   const Square = ({ handleClick, value }) => {
     return <SquareStyle onClick={handleClick}>{value}</SquareStyle>;
@@ -66,9 +47,6 @@ const TicTacToeReact = () => {
     const onDropPlayerTwo = (picture) => {
       let reader = new FileReader();
       if (picture[0]) reader.readAsDataURL(picture[0]);
-      // } else {
-      //   alert("fuck you");
-      // }
 
       reader.onload = (e) => {
         setOImage(
@@ -92,8 +70,11 @@ const TicTacToeReact = () => {
 
     const winner = calculateWinner(boardSquares);
     const nextPlayerStatus = xIsNext ? xImage : oImage;
-    const status =  (winner && winner === 'LOL you tied') ? winner : nextPlayerStatus;
-    const statusLabel = winner ? `You won!! Rub it in their face!` : `Your Turn`;
+    const status =
+      winner && winner === "LOL you tied" ? winner : nextPlayerStatus;
+    const statusLabel = winner
+      ? `You won!! Rub it in their face!`
+      : `Your Turn`;
 
     return (
       <div>
@@ -115,6 +96,7 @@ const TicTacToeReact = () => {
                 withPreview={true}
                 label="Max Size 5mb | accepts: jpg gif jpeg"
                 buttonText="Upload an image or gif"
+                errorClass="Sorry please try again"
               />
             </ImportStyles>
             <ImportStyles>
@@ -133,7 +115,7 @@ const TicTacToeReact = () => {
                 label="Max Size 5mb Accepts: jpg gif jpeg"
                 buttonText="Upload an image or gif"
                 errorClass="Sorry please try again"
-                // errorStyle
+              
               />
             </ImportStyles>
           </ImageUploadStyle>
